@@ -17,6 +17,8 @@
 
   定稿版（以 07 為基礎）：加入 05 CONTACT 聯絡區（左下 billing block），並為印刷加粗部分字重。
   色彩只用三種：象牙白 --ivory／火星橘紅 --rust／暖灰 --gray（較弱 --gray-2）
+  底圖：素材/底圖-AI放大4x.png（原圖 630×945 經 Real-ESRGAN x4plus 放大至 2520×3780，並疊回原圖星點）
+  列印：@page 為 400×600mm（2:3），用瀏覽器「列印 → 另存 PDF」或 headless 輸出即為向量文字 PDF
   QR：素材/報名QR-圓點.svg（方格備用：報名QR-方格.svg）→ https://ntut-ee-redirect.pages.dev/
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,6 +46,12 @@
     color:var(--ivory);font-family:var(--tc);background:#060304;
   }
   .poster > *{position:absolute}
+  @page{size:400mm 600mm;margin:0}
+  @media print{
+    html,body{height:auto;background:#060304;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{display:block}
+    .poster{width:400mm}
+  }
   .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
 
   .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em}
@@ -117,7 +125,7 @@
 </head>
 <body>
 <main class="poster">
-  <img class="bg" src="../素材/底圖.webp" alt="">
+  <img class="bg" src="../素材/底圖-AI放大4x.png" alt="">
   <div class="shade"></div>
 
   <!-- 角落 -->
