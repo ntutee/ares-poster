@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜Vertical Mission HUD</title>
+<!--
+  版本：Cinematic Mars Poster + Vertical Mission HUD
+  視覺流：右上火星 → 中右遠方基地 → 右下太空人。
+  HUD 主軸是一條 x=90cqw 的垂直細線，從火星旁一路延伸到基地上空；
+  資訊節點靠右對齊掛在主軸左側，依高度對應火星（座標）→ 任務資料 → 基地（APPLY / ARES-1）。
+  左側只放品牌與標題；地平線以下（y > 104cqw）與太空人周圍不放任何文字。
+
+  海報比例 2:3（同底圖 630×945），單位 cqw＝海報寬度 1%（寬 100 × 高 150）。
+  背景座標：火星≈x76–83 y26–35｜基地天線頂端≈x72 y103.5｜太空人≈x83–87 y125–135
+  節點高度：直接改各 .node 的 style="top:…cqw"
+  QR：把 .qr 內的 <svg> 換成 <img src="qr.png" alt="報名 QR Code">
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@300;400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#ebe3d6;               /* 主要文字 */
+    --rust:#d0603f;                /* 強調 / active */
+    --gray:#a59b8f;                /* 次要 */
+    --gray-2:#7d746b;              /* 更弱 */
+    --hair:rgba(235,227,214,.22);
+    --axis:90cqw;                  /* HUD 主軸位置 */
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,monospace;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+    --serif:"Noto Serif TC","PMingLiU",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#040203}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ivory);font-family:var(--tc);background:#060304;
+  }
+  .poster > *{position:absolute}
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+  /* ================= 左側：品牌與標題 ================= */
+  .brand{left:7cqw;top:6cqw;font-size:1.5cqw;letter-spacing:.36em;color:var(--gray)}
+
+  .title{left:7cqw;top:15cqw;width:max-content}
+  .title h1{font-family:var(--serif);font-weight:900;font-size:14cqw;line-height:1.03;letter-spacing:.06em;margin-right:-.06em}
+  .title h1 span{display:block}
+  .title .zh{margin-top:2.4cqw;font-weight:500;font-size:3.9cqw;line-height:1;letter-spacing:1.08em;margin-right:-1.08em;color:var(--rust)}
+  .title .en{margin-top:2.1cqw;font-family:var(--sans);font-weight:400;font-size:1.8cqw;line-height:1;letter-spacing:.7em;color:var(--gray)}
+  .title .camp{margin-top:5cqw;padding-top:3cqw;border-top:1px solid var(--hair)}
+  .title .camp-en{font-family:var(--sans);font-weight:500;font-size:2.9cqw;letter-spacing:.12em;line-height:1;white-space:nowrap}
+  .title .camp-zh{margin-top:1.8cqw;font-size:2.3cqw;line-height:1;color:var(--gray);text-align:justify;text-align-last:justify}
+
+  /* ================= 右側：Vertical Mission HUD ================= */
+  /* 主軸 */
+  .axis{left:var(--axis);top:11cqw;width:1px;height:90cqw;
+    background:linear-gradient(to bottom,transparent,var(--hair) 6%,var(--hair) 92%,transparent)}
+  /* 主軸刻度（只在右側，像量尺） */
+  .ticks{left:calc(var(--axis) + 1px);top:40cqw;width:.9cqw;height:58cqw;opacity:.5;
+    background:repeating-linear-gradient(to bottom,var(--hair) 0 1px,transparent 1px 2.5cqw)}
+
+  .node{left:0;right:0;height:0}
+  /* 節點標記 */
+  .node::after{content:"";position:absolute;left:calc(var(--axis) - .45cqw);top:-.45cqw;
+    width:.9cqw;height:.9cqw;border-radius:50%;border:1px solid var(--gray);background:#0a0605}
+  .node.active::after{border-color:var(--rust);background:var(--rust)}
+  /* 節點 → 文字的短連接線 */
+  .node::before{content:"";position:absolute;left:calc(var(--axis) - 2.2cqw);top:0;width:1.4cqw;height:1px;background:var(--hair)}
+
+  .node .txt{position:absolute;right:calc(100cqw - var(--axis) + 3cqw);top:-.55cqw;text-align:right;white-space:nowrap}
+  .lab{display:block;font-family:var(--mono);font-size:1.1cqw;letter-spacing:.24em;line-height:1;text-transform:uppercase;color:var(--gray-2)}
+  .lab em{font-style:normal;color:var(--rust);margin-right:.9em}
+  .val{margin-top:1.3cqw;font-weight:500;font-size:2.7cqw;letter-spacing:.06em;line-height:1.1}
+  .val.num{font-family:var(--sans);font-weight:400;letter-spacing:.01em}
+  .sub{margin-top:.9cqw;font-family:var(--mono);font-size:1.1cqw;letter-spacing:.2em;line-height:1.5;text-transform:uppercase;color:var(--gray)}
+  .sub .tc{font-family:var(--tc);letter-spacing:.24em;text-transform:none}
+
+  /* 01：任務日期（HUD 中最大） */
+  .mission .val{font-size:4.3cqw;font-weight:400;margin-top:1.5cqw}
+  .mission .val i{font-style:normal;font-weight:300;color:var(--rust);margin:0 .2em}
+
+  /* MARS：掛在主軸右側，並以短線連向火星 */
+  .mars::before{left:85cqw;width:4.5cqw;background:linear-gradient(to left,var(--hair),transparent)}
+  .mars .txt{right:auto;left:calc(var(--axis) + 1.8cqw);text-align:left}
+  .mars .lab{color:var(--gray)}
+  .mars .sub{margin-top:.8cqw;font-size:.95cqw;color:var(--gray-2)}
+
+  /* 05：APPLY（QR 為最後一個節點） */
+  .apply .txt{display:flex;align-items:flex-start;gap:2cqw}
+  .apply .meta{padding-top:0}
+  .apply .val{font-size:2.3cqw;letter-spacing:.3em;margin-right:-.3em}
+  .qr{width:10.5cqw;aspect-ratio:1;padding:.7cqw;background:var(--ivory)}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+
+  /* ARES-1：指向遠方基地 */
+  .ares{left:44cqw;top:98cqw;width:30cqw;height:7cqw}
+  .ares svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .ares p{position:absolute;right:13.4cqw;top:.9cqw;text-align:right;font-family:var(--mono);text-transform:uppercase;line-height:1.4;white-space:nowrap}
+  .ares b{display:block;font-weight:400;font-size:1.05cqw;letter-spacing:.26em;color:var(--gray)}
+  .ares span{display:block;font-size:.85cqw;letter-spacing:.22em;color:var(--rust)}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="../素材/底圖.webp" alt="">
+
+  <!-- ===== 左側：品牌與標題 ===== -->
+  <p class="brand">國立臺北科技大學 電機工程系</p>
+
+  <section class="title">
+    <h1><span>絕地</span><span>救援</span></h1>
+    <p class="zh">赤境計畫</p>
+    <p class="en">PROJECT ARES</p>
+    <div class="camp">
+      <p class="camp-en">2027 NTUT EE CAMP</p>
+      <p class="camp-zh">北科電機冬令營</p>
+    </div>
+  </section>
+
+  <!-- ===== 右側：Vertical Mission HUD ===== -->
+  <div class="axis"></div>
+  <div class="ticks"></div>
+
+  <div class="node mars" style="top:30.5cqw">
+    <div class="txt">
+      <span class="lab">Mars</span>
+      <p class="sub">25.0°N<br>226.1°E</p>
+    </div>
+  </div>
+
+  <div class="node mission active" style="top:44cqw">
+    <div class="txt">
+      <span class="lab"><em>01</em>Mission · 2027</span>
+      <p class="val num">01.25<i>—</i>01.29</p>
+      <p class="sub">05 Days / 04 Nights　<span class="tc">五天四夜</span></p>
+    </div>
+  </div>
+
+  <div class="node" style="top:58cqw">
+    <div class="txt">
+      <span class="lab"><em>02</em>Location</span>
+      <p class="val">國立臺北科技大學</p>
+      <p class="sub">NTUT · Taipei</p>
+    </div>
+  </div>
+
+  <div class="node" style="top:69cqw">
+    <div class="txt">
+      <span class="lab"><em>03</em>Enlist</span>
+      <p class="val num">11.01 — 11.21</p>
+      <p class="sub"><span class="tc">報名期間・第一階段</span></p>
+    </div>
+  </div>
+
+  <div class="node" style="top:80cqw">
+    <div class="txt">
+      <span class="lab"><em>04</em>Crew</span>
+      <p class="val">全國高中職學生</p>
+      <p class="sub">Limit 100　<span class="tc">限額 100 名</span></p>
+    </div>
+  </div>
+
+  <div class="node apply" style="top:90.5cqw">
+    <div class="txt">
+      <div class="meta">
+        <span class="lab"><em>05</em>Apply</span>
+        <p class="val">掃描報名</p>
+        <p class="sub">Scan to enlist</p>
+      </div>
+      <div class="qr">
+        <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+        <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+          <g fill="#140c0a"><path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/></g>
+          <g fill="#ebe3d6"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+          <g fill="#140c0a">
+            <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+            <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARES-1：leader line 指向基地天線頂端（x72 y103.5） -->
+  <div class="ares">
+    <svg viewBox="0 0 300 70" aria-hidden="true">
+      <polyline points="160,20 236,20 276,51" fill="none" stroke="#ebe3d6" stroke-opacity=".3" stroke-width=".6" vector-effect="non-scaling-stroke"/>
+      <circle cx="280" cy="55" r="5" fill="none" stroke="#d0603f" stroke-opacity=".75" stroke-width=".6" vector-effect="non-scaling-stroke"/>
+      <circle cx="280" cy="55" r="1.4" fill="#d0603f"/>
+    </svg>
+    <p><b>ARES-1</b><span>Communication lost</span></p>
+  </div>
+</main>
+</body>
+</html>

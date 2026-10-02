@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜Last Signal from Mars</title>
+<!--
+  版本：Emergency Transmission / Last Signal from Mars（探測車底圖）
+  概念：整張海報是火星基地失聯前留下的最後一則訊號紀錄。
+    1. 主標上方是一列「LAST TRANSMISSION」訊號列：一條細波形逐漸衰弱→中斷→平線 → SIGNAL LOST。
+       這是全張唯一的 transmission 文案（第二眼）。
+    2. 主標、赤境計畫、2027 NTUT EE CAMP 依序往下（第一、第三眼）。
+    3. 活動資訊做成一筆「紀錄」：左側一條細橘紅線，像 log entry；QR 在紀錄右側。
+    4. 一條極淡、帶一處中斷的橫向訊號線，從左側文字區延伸到右側天空。
+    5. 基地與探測車各一個極小 annotation。基地以下的岩石區不放文字。
+  海報比例 2:3（同底圖 1024×1536），單位 cqw＝海報寬度 1%（寬 100 × 高 150）。
+  背景座標參考：
+    天體 ≈ x75–91 y7–31｜地平線 ≈ y77–82｜基地 ≈ x17–41 y74–82（高塔頂 ≈ x34 y73.7，圓頂 ≈ x35–40 y77.5）
+    探測車 ≈ x41–100 y84–123（鏡頭頭部 ≈ x62–72 y84.5–88）｜右側夕陽 ≈ x85 以右 y70–80
+  QR：把 .qr 內的 <svg> 換成 <img src="qr.png" alt="報名 QR Code">
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#ece2d2;               /* 暖象牙白 */
+    --rust:#d2643f;                /* 火星橘紅 */
+    --gray:#a89a8a;                /* 暖灰 */
+    /* 色調層級（皆由象牙白／暖灰與底色混出，不新增色相） */
+    --tone-80:color-mix(in srgb,var(--ivory) 80%,#120a07);   /* 約 80% 亮度暖灰白 */
+    --tone-45:color-mix(in srgb,var(--gray) 72%,#120a07);    /* 更弱的暖灰 */
+    --left:6.5cqw;
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,monospace;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0a0605}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ivory);font-family:var(--tc);background:#120a07;
+  }
+  .poster > *{position:absolute}
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .mono{font-family:var(--mono);text-transform:uppercase}
+
+  /* ===== 光影事件感（不改底圖，只疊加） ===== */
+  /* 上半部天空壓深，讓主標更有壓迫感 */
+  .shade{inset:0;pointer-events:none;
+    background:
+      radial-gradient(110% 62% at 16% 10%, rgba(4,2,1,.55) 0%, rgba(4,2,1,.28) 45%, rgba(4,2,1,0) 78%),
+      linear-gradient(to bottom, rgba(4,2,1,.25) 0, rgba(4,2,1,0) 40%)}
+  /* 基地異常紅色訊號＋右側地平線異常光源 */
+  .event{inset:0;pointer-events:none;mix-blend-mode:screen;
+    background:
+      radial-gradient(1.1cqw 1.1cqw at 33.8cqw 74.3cqw, rgba(255,96,56,.6), rgba(255,96,56,0)),
+      radial-gradient(.85cqw .85cqw at 24.3cqw 76.2cqw, rgba(255,96,56,.45), rgba(255,96,56,0)),
+      radial-gradient(9cqw 2.6cqw at 31cqw 77cqw, rgba(210,100,63,.2), rgba(210,100,63,0)),
+      radial-gradient(24cqw 5cqw at 100cqw 78.4cqw, rgba(236,160,100,.24), rgba(236,160,100,0))}
+  /* 行星亮緣：一條極細、乾淨的邊光 */
+  .rim{left:65.95cqw;top:7.3cqw;width:24.6cqw;height:24.6cqw;overflow:visible;pointer-events:none;mix-blend-mode:screen}
+
+  /* ===== 校系 ===== */
+  .org{left:var(--left);top:4.8cqw;font-size:1.4cqw;letter-spacing:.36em;color:var(--gray)}
+
+  /* ===== Transmission 訊號列（主標上方） ===== */
+  .signal{left:var(--left);top:9.2cqw;display:flex;align-items:center;gap:1.1cqw;white-space:nowrap}
+  .signal .tx{display:flex;align-items:center;gap:.8cqw;font-weight:500;font-size:1.05cqw;letter-spacing:.24em;color:var(--rust);opacity:.9}
+  .signal .tx::before{content:"";width:.55cqw;height:.55cqw;border-radius:50%;background:var(--rust)}
+  .signal svg{flex:none;width:6cqw;height:1.8cqw;overflow:visible}
+  .signal .lost{font-size:1cqw;letter-spacing:.22em;color:var(--gray)}
+  .signal .lost b{font-weight:500;color:var(--ivory);margin-right:.8em}
+
+  /* ===== 主標 ===== */
+  .title{left:calc(var(--left) - .55cqw);top:12.4cqw}
+  .title h1,.title .fx{font-weight:800;font-size:14cqw;line-height:.98;letter-spacing:.03em;color:var(--ivory)}
+  .title h1 span,.title .fx span{display:block}
+
+  /* --- signal interference typography ---
+     主標本體挖掉 4 條極細水平帶（遮罩），其中 3 條由位移後的切片補回，1 條保留為訊號斷口；
+     另有兩層很淡的殘影墊在本體後方。所有百分比都相對於主標整塊（兩行）的寬高。
+     切片與殘影的文字由頁尾 script 從 h1 複製，只需修改 h1。 */
+  .title h1{position:relative;z-index:1;
+    -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><path fill-rule='evenodd' fill='white' d='M0 0H100V100H0Z M6 19.6H58V20.3H6Z M50 32.6H100V35.6H50Z M0 66H100V70.5H0Z M52 83.5H100V84.6H52Z'/></svg>") 0 0/100% 100% no-repeat;
+            mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><path fill-rule='evenodd' fill='white' d='M0 0H100V100H0Z M6 19.6H58V20.3H6Z M50 32.6H100V35.6H50Z M0 66H100V70.5H0Z M52 83.5H100V84.6H52Z'/></svg>") 0 0/100% 100% no-repeat}
+  .title .fx{position:absolute;inset:0;pointer-events:none}
+  /* 位移切片（補回被挖掉的帶） */
+  .title .s1{z-index:2;clip-path:inset(32.6% 0 64.4% 50%);transform:translateX(1.3cqw)}
+  .title .s2{z-index:2;clip-path:inset(66% 0 29.5% 0);transform:translateX(-.85cqw)}
+  .title .s3{z-index:2;clip-path:inset(83.5% 0 15.4% 52%);transform:translateX(.7cqw);color:color-mix(in srgb,var(--ivory) 70%,var(--rust))}
+  /* 殘影（在本體後方，只露出邊緣） */
+  .title .g1{z-index:0;clip-path:inset(63% 0 26% 0);transform:translateX(-.46cqw);color:var(--rust);opacity:.26}
+  .title .g2{z-index:0;clip-path:inset(30.5% 0 62% 50%);transform:translateX(.48cqw);color:var(--gray);opacity:.24}
+  /* 一條極細波形局部穿過「地」的切片，延伸進右側天空後消失 */
+  .title .wave{position:absolute;z-index:3;left:46%;top:32.2%;width:78%;height:4%;overflow:visible;pointer-events:none}
+
+  .caption{left:var(--left);top:41.8cqw;display:flex;align-items:baseline;gap:2.4cqw;white-space:nowrap}
+  .caption b{font-weight:500;font-size:3.2cqw;letter-spacing:.4em;color:var(--rust)}
+  .caption span{font-family:var(--sans);font-weight:600;font-size:1.45cqw;letter-spacing:.5em;color:color-mix(in srgb,var(--gray) 55%,var(--ivory))}
+
+  /* ===== 活動識別 ===== */
+  .camp{left:var(--left);top:48cqw}
+  .camp p{font-family:var(--sans);font-weight:600;font-size:3.07cqw;letter-spacing:.1em;line-height:1;white-space:nowrap;color:var(--tone-80)}
+  .camp span{display:block;margin-top:1.3cqw;font-weight:500;font-size:2cqw;letter-spacing:.16em;line-height:1;color:var(--gray)}
+
+
+  /* ===== 紀錄：活動資訊 ===== */
+  .record{left:var(--left);top:57.1cqw}
+  .win{display:flex;align-items:baseline;gap:1.2cqw;margin-bottom:1.3cqw;font-size:1cqw;letter-spacing:.32em;line-height:1;color:var(--tone-45)}
+  .win b{font-family:var(--sans);font-weight:500;font-size:1.45cqw;letter-spacing:.2em;color:var(--gray)}
+  .entry{}
+  .date{font-family:var(--sans);font-weight:600;font-size:4.4cqw;line-height:1;white-space:nowrap}
+  .date i{font-style:normal;color:var(--rust);margin:0 .18em}
+  .place{margin-top:1.75cqw;font-weight:400;font-size:2.1cqw;letter-spacing:.1em;line-height:1;color:var(--tone-80)}
+  .meta{margin-top:1.3cqw;font-size:1.8cqw;letter-spacing:.1em;line-height:1;color:var(--gray);white-space:nowrap}
+  .meta .num{font-family:var(--sans);font-weight:500;color:var(--tone-80)}
+  .meta .who{font-weight:500;color:var(--tone-80)}
+  .meta .cap{font-size:1.65cqw;color:var(--tone-45)}
+  .meta .dot{margin:0 .7em;opacity:.7}
+
+  /* QR：獨立 CTA，往右下錯開，不與日期同一水平線 */
+  .apply{left:63cqw;top:64.6cqw;display:flex;align-items:flex-end;gap:1.6cqw}
+  .qr{width:8.5cqw;aspect-ratio:1;padding:.7cqw;background:var(--ivory);border-radius:.25cqw}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+  .apply p{font-size:1.5cqw;letter-spacing:.3em;line-height:1.7;color:var(--tone-80);text-shadow:0 0 1cqw rgba(10,5,3,.7)}
+  .apply p b{display:block;font-family:var(--sans);font-weight:600;font-size:1.2cqw;letter-spacing:.36em;color:var(--ivory)}
+
+  /* ===== 世界觀 annotation ===== */
+  .note{white-space:nowrap;line-height:1.5;opacity:.78}
+  .note b{display:block;font-weight:500;letter-spacing:.26em;color:var(--ivory)}
+  .note span{display:block;letter-spacing:.22em}
+  .note svg{position:absolute;overflow:visible}
+
+  .base-note{left:44cqw;top:73.4cqw;text-shadow:0 0 .6cqw rgba(10,5,3,.9),0 0 1.4cqw rgba(10,5,3,.7)}
+  .base-note b{font-size:1cqw}
+  .base-note span{font-size:.82cqw;color:var(--rust)}
+  .base-note svg{left:-7cqw;top:0;width:7cqw;height:4.4cqw}
+
+  .rover-note{left:77cqw;top:82.4cqw;text-shadow:0 0 .6cqw rgba(10,5,3,.85),0 0 1.4cqw rgba(10,5,3,.6)}
+  .rover-note b{font-size:1.13cqw}
+  .rover-note span{font-size:.93cqw;letter-spacing:.17em;color:var(--ivory);opacity:.85}
+  .rover-note svg{left:-5cqw;top:0;width:5cqw;height:4cqw}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="../素材/底圖-探測車.png" alt="">
+  <div class="shade"></div>
+  <div class="event"></div>
+  <svg class="rim" viewBox="0 0 100 100" aria-hidden="true">
+    <defs><linearGradient id="rimg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ece2d2" stop-opacity="0"/>
+      <stop offset=".45" stop-color="#ece2d2" stop-opacity=".55"/>
+      <stop offset=".8" stop-color="#d2643f" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#d2643f" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path d="M67.1 3 A50 50 0 0 1 67.1 97" fill="none" stroke="url(#rimg)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  </svg>
+
+  <p class="org">國立臺北科技大學 電機工程系</p>
+
+  <!-- Transmission：最後訊號 -->
+  <div class="signal mono">
+    <span class="tx">Last Transmission</span>
+    <svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true">
+      <!-- 一小段衰減中的訊號，之後歸於平線 -->
+      <polyline points="0,13 4,13 6,6 8,20 10,3 12,23 14,8 16,17 18,13 24,13 26,9 28,17 30,11 32,14 38,13 42,11 44,15 46,13 54,13 57,12 59,14 61,13 100,13"
+        fill="none" stroke="#ece2d2" stroke-opacity=".75" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+      <circle cx="100" cy="13" r="1.6" fill="#d2643f"/>
+    </svg>
+    <span class="lost"><b>Signal lost</b>04:17:32</span>
+  </div>
+
+  <!-- 主標 -->
+  <section class="title">
+    <div class="fx g1" aria-hidden="true"></div>
+    <div class="fx g2" aria-hidden="true"></div>
+    <h1><span>絕地</span><span>救援</span></h1>
+    <div class="fx s1" aria-hidden="true"></div>
+    <div class="fx s2" aria-hidden="true"></div>
+    <div class="fx s3" aria-hidden="true"></div>
+    <svg class="wave" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true">
+      <defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#d2643f" stop-opacity="0"/>
+        <stop offset=".15" stop-color="#d2643f" stop-opacity=".7"/>
+        <stop offset=".55" stop-color="#ece2d2" stop-opacity=".55"/>
+        <stop offset="1" stop-color="#ece2d2" stop-opacity="0"/>
+      </linearGradient></defs>
+      <polyline points="0,10 30,10 36,10 40,6 43,14 46,2 49,18 52,8 55,12 62,10 74,10 78,8 81,12 84,10 120,10 124,9 127,11 130,10 200,10"
+        fill="none" stroke="url(#wg)" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+    </svg>
+  </section>
+
+  <div class="caption">
+    <b>赤境計畫</b>
+    <span>PROJECT ARES</span>
+  </div>
+
+  <div class="camp">
+    <p>2027 NTUT EE CAMP</p>
+    <span>北科電機冬令營</span>
+  </div>
+
+  <!-- 紀錄：活動資訊 + QR -->
+  <section class="record">
+    <div class="entry">
+      <span class="win mono">Mission Window<b>2027</b></span>
+      <p class="date">01.25<i>—</i>01.29</p>
+      <p class="place">國立臺北科技大學</p>
+      <p class="meta">報名 <span class="num">11.01 — 11.21</span><span class="dot">·</span><span class="who">全國高中職學生</span><span class="dot">·</span><span class="cap">限額 100 名</span></p>
+    </div>
+  </section>
+
+  <!-- QR：獨立 CTA -->
+  <div class="apply">
+    <div class="qr">
+      <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+      <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+        <g fill="#140c0a"><path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/></g>
+        <g fill="#ece2d2"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+        <g fill="#140c0a">
+          <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+          <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+        </g>
+      </svg>
+    </div>
+    <p><b>JOIN MISSION</b>掃描加入先鋒隊</p>
+  </div>
+
+  <!-- 基地 annotation -->
+  <div class="note mono base-note">
+    <svg viewBox="0 0 70 44" aria-hidden="true">
+      <polyline points="68,8 20,8 -6,40" fill="none" stroke="#ece2d2" stroke-opacity=".26" stroke-width=".5" vector-effect="non-scaling-stroke"/>
+      <circle cx="-6.5" cy="40.5" r="1" fill="#d2643f"/>
+    </svg>
+    <b>ARES-1</b>
+    <span>Communication lost</span>
+  </div>
+
+  <!-- 探測車 annotation -->
+  <div class="note mono rover-note">
+    <svg viewBox="0 0 50 40" aria-hidden="true">
+      <polyline points="47,11 18,11 4,35" fill="none" stroke="#ece2d2" stroke-opacity=".22" stroke-width=".5" vector-effect="non-scaling-stroke"/>
+      <circle cx="3.4" cy="35.8" r="1" fill="#ece2d2" fill-opacity=".8"/>
+    </svg>
+    <b>ARES Rover</b>
+    <span>Autonomous exploration unit</span>
+  </div>
+</main>
+<script>
+  /* 主標干擾層：切片與殘影複製 h1 的文字，修改主標只需改 h1 */
+  const h1 = document.querySelector('.title h1');
+  document.querySelectorAll('.title .fx').forEach(el => { el.innerHTML = h1.innerHTML; });
+</script>
+</body>
+</html>

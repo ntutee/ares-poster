@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜2027 北科電機冬令營</title>
+<!--
+  構圖：左上主標 → 留白 → 左中 Mission Data（黑色天空）→ 視線落到火星、基地、太空人。
+  地景（y > 104cqw）保持乾淨，不放活動資訊。
+  海報比例 2:3（同底圖 630×945），尺寸單位 cqw＝海報寬度 1%（寬 100 × 高 150）。
+  背景座標參考：火星≈x79 y31｜地平線≈y105｜基地天線≈x72 y104｜太空人≈x83–87 y125–135
+  QR：把 .qr 內的 <svg> 換成 <img src="qr.png" alt="報名 QR Code">
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@200;300;400&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#ece5da;
+    --ink-2:rgba(236,229,218,.74);
+    --ink-3:rgba(236,229,218,.44);
+    --rust:#c9492f;
+    --rust-2:#dc6c4f;
+    --hair:rgba(236,229,218,.22);
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,monospace;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#040203}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ink);font-family:var(--tc);background:#060304;
+  }
+  .poster > *{position:absolute}
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+  .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em}
+
+  /* ===== 角落 ===== */
+  .corner-tl{left:7cqw;top:6cqw;font-size:1.5cqw;letter-spacing:.36em;color:var(--ink-2)}
+  .corner-tr{right:7cqw;top:6cqw;text-align:right;font-size:1.2cqw;line-height:1.7;color:var(--ink-3)}
+  .corner-tr::after{content:"";display:block;width:1px;height:9cqw;margin:1.6cqw 0 0 auto;background:linear-gradient(var(--hair),transparent)}
+
+  /* ===== 主標 ===== */
+  .hero{left:7cqw;top:12.5cqw;width:max-content}
+  .hero h1{font-family:"Noto Serif TC","PMingLiU",serif;font-weight:900;font-size:12.6cqw;line-height:1.08;letter-spacing:.06em;margin-right:-.06em}
+  .hero h1 span{display:block}
+  .just{text-align:justify;text-align-last:justify}
+  .hero .zh{margin-top:2.6cqw;font-weight:500;font-size:3.5cqw;line-height:1;color:var(--rust-2)}
+  .hero .en{margin-top:2cqw;font-family:var(--sans);font-weight:300;font-size:1.8cqw;line-height:1;letter-spacing:.66em;margin-right:-.66em}
+  .hero .camp{margin-top:3.8cqw;padding-top:2.6cqw;border-top:1px solid var(--hair)}
+  .hero .camp-en{font-family:var(--sans);font-weight:400;font-size:2cqw;letter-spacing:.2em;line-height:1}
+  .hero .camp-zh{margin-top:1.5cqw;font-weight:400;font-size:2.1cqw;line-height:1;color:var(--ink-2)}
+
+  /* ===== Mission Data（左中黑色天空） ===== */
+  /* 上段＝任務（何時、何地，安靜）；下段＝招募（行動：招募中＋報名＋QR） */
+  .data{left:7cqw;top:71cqw;width:60cqw}
+  .data .head{display:flex;align-items:center;gap:1.6cqw;font-size:1.25cqw;color:var(--ink-2)}
+  .data .head i{flex:1;height:1px;background:var(--hair)}
+
+  .mission{margin-top:2.4cqw;display:flex;justify-content:space-between;align-items:flex-start}
+  .mission .date{font-family:var(--sans);font-weight:300;font-size:6.2cqw;letter-spacing:.01em;line-height:.85;white-space:nowrap}
+  .mission .date i{font-style:normal;color:var(--rust-2);margin:0 .22em}
+  .mission .where{margin-top:2.2cqw;font-size:2.3cqw;letter-spacing:.14em;color:var(--ink-2)}
+  .mission .where .num{font-family:var(--sans);letter-spacing:.12em}
+  .dot{margin:0 .6em;color:var(--ink-3)}
+
+  .apply{display:flex;flex-direction:column;align-items:center;gap:1.2cqw}
+  .qr{width:10cqw;aspect-ratio:1;padding:.6cqw;background:#ece5da}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+  .apply span{font-size:1.4cqw;letter-spacing:.34em;margin-right:-.34em;color:var(--ink-2);line-height:1}
+
+  .enlist{margin-top:2.2cqw;padding-top:2.4cqw;border-top:1px solid var(--hair)}
+  .enlist .call{display:flex;align-items:center;gap:1.4cqw;font-weight:500;font-size:2.4cqw;letter-spacing:.3em;color:var(--rust-2);line-height:1}
+  .enlist .call::before{content:"";width:1cqw;height:1cqw;background:var(--rust);border-radius:50%;box-shadow:0 0 1.4cqw var(--rust)}
+  .enlist .row{margin-top:1.7cqw;display:flex;justify-content:space-between;align-items:flex-end;white-space:nowrap}
+  .enlist .reg{font-size:2.2cqw;letter-spacing:.2em;line-height:1}
+  .enlist .reg b{font-family:var(--sans);font-weight:400;font-size:3.4cqw;letter-spacing:.04em;margin-left:.5em}
+  .enlist .who{text-align:right;font-size:2cqw;letter-spacing:.14em;line-height:1.45;color:var(--ink-2)}
+
+  /* ===== 世界觀細節：ARES-1 ===== */
+  .ares{left:72cqw;top:94cqw;height:9.5cqw;padding-left:1.4cqw;border-left:1px solid var(--hair);font-family:var(--mono);text-transform:uppercase}
+  .ares::before{content:"";position:absolute;left:-.4cqw;bottom:-.4cqw;width:.8cqw;height:.8cqw;border-radius:50%;background:var(--rust);box-shadow:0 0 1.2cqw var(--rust);animation:blink 2.4s steps(1) infinite}
+  .ares b{display:block;font-weight:400;font-size:1.25cqw;letter-spacing:.24em;color:var(--ink-2)}
+  .ares span{display:block;font-size:1.05cqw;letter-spacing:.2em;color:var(--rust-2)}
+  @keyframes blink{50%{opacity:.25}}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="../素材/底圖.webp" alt="">
+
+  <!-- 角落 -->
+  <p class="corner-tl">國立臺北科技大學 電機工程系</p>
+  <p class="corner-tr mono">Mars<br>25.0°N / 226.1°E</p>
+
+  <!-- 主標 -->
+  <section class="hero">
+    <h1><span>絕地</span><span>救援</span></h1>
+    <p class="zh just">赤境計畫</p>
+    <p class="en">PROJECT ARES</p>
+    <div class="camp">
+      <p class="camp-en">2027 NTUT EE CAMP</p>
+      <p class="camp-zh just">北科電機冬令營</p>
+    </div>
+  </section>
+
+  <!-- Mission Data -->
+  <section class="data">
+    <div class="head mono">Mission Data<i></i>Project Ares</div>
+
+    <div class="mission">
+      <div>
+        <p class="date">01.25<i>—</i>01.29</p>
+        <p class="where"><span class="num">2027</span><span class="dot">·</span>五天四夜<span class="dot">·</span>國立臺北科技大學</p>
+      </div>
+      <div class="apply">
+        <div class="qr">
+          <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+          <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+            <g fill="#140c0a"><path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/></g>
+            <g fill="#ece5da"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+            <g fill="#140c0a">
+              <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+              <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+            </g>
+          </svg>
+        </div>
+        <span>掃描報名</span>
+      </div>
+    </div>
+
+    <div class="enlist">
+      <p class="call">赤境救援先鋒隊　招募中</p>
+      <div class="row">
+        <p class="reg">報名<b>11.01 — 11.21</b></p>
+        <p class="who">全國高中職學生<br>限額 100 名</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 世界觀細節 -->
+  <div class="ares">
+    <b>ARES-1</b>
+    <span>Communication lost</span>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜2027 北科電機冬令營</title>
+<!--
+  構圖：左上主標 ↔ 右下太空人、右上火星 ↔ 左下資訊（對角平衡）；中段與右側留白。
+  海報比例 2:3（同底圖 630×945），尺寸單位 cqw＝海報寬度 1%（寬 100 × 高 150）。
+  背景座標參考：火星≈x79 y31｜地平線≈y105｜基地天線≈x72 y104｜太空人≈x83–87 y125–135
+  主標區（.hero）寬度＝「絕地救援」寬度，其下各行以 text-align-last: justify 對齊同寬。
+  QR：把 .qr 內的 <svg> 換成 <img src="qr.png" alt="報名 QR Code">
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Montserrat:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#ece5da;
+    --ink-2:rgba(236,229,218,.72);
+    --ink-3:rgba(236,229,218,.45);
+    --rust:#c9492f;
+    --rust-2:#dc6c4f;
+    --hair:rgba(236,229,218,.24);
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,monospace;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#040203}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ink);font-family:var(--tc);background:#060304;
+  }
+  .poster > *{position:absolute}
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .shade{
+    inset:0;pointer-events:none;
+    background:linear-gradient(to top, rgba(6,3,3,.8) 0%, rgba(6,3,3,.5) 12%, rgba(6,3,3,0) 24%);
+  }
+
+  /* ===== 四角相框 ===== */
+  .corner-tl{left:7cqw;top:6cqw}
+  .corner-tl b{display:block;font-weight:400;font-size:1.6cqw;letter-spacing:.34em;color:var(--ink-2)}
+  .corner-tl span{display:block;margin-top:.9cqw;font-family:var(--sans);font-size:1.05cqw;letter-spacing:.28em;color:var(--ink-3);text-transform:uppercase}
+
+  .corner-tr{right:7cqw;top:6cqw;text-align:right;font-family:var(--mono);font-size:1.1cqw;letter-spacing:.24em;line-height:1.7;color:var(--ink-3)}
+  .corner-tr::after{content:"";display:block;width:1px;height:9cqw;margin:1.6cqw 0 0 auto;background:linear-gradient(var(--hair),transparent)}
+
+  /* ===== 主標區 ===== */
+  .hero{left:7cqw;top:20cqw;width:max-content}
+  .hero h1{font-weight:700;font-size:15cqw;line-height:1.08;letter-spacing:.06em;margin-right:-.06em}
+  .hero h1 span{display:block}
+  .hero .just{text-align:justify;text-align-last:justify}
+  .hero .zh{margin-top:3.4cqw;font-weight:500;font-size:4.1cqw;line-height:1;color:var(--rust-2)}
+  .hero .en{margin-top:2.6cqw;font-family:var(--sans);font-weight:300;font-size:2cqw;letter-spacing:.69em;line-height:1;margin-right:-.69em}
+  .hero .rule{display:block;width:4cqw;height:1px;background:var(--ink-3);margin:6cqw 0 3.4cqw}
+  .hero .camp-en{font-family:var(--sans);font-weight:400;font-size:2.3cqw;letter-spacing:.2em;line-height:1}
+  .hero .camp-zh{margin-top:1.8cqw;font-weight:400;font-size:2.4cqw;line-height:1;color:var(--ink-2)}
+
+  /* ===== 彩蛋：ARES-1 ===== */
+  .ares{left:72cqw;top:91cqw;height:12.5cqw;padding-left:1.5cqw;border-left:1px solid var(--hair);font-family:var(--mono)}
+  .ares::before{content:"";position:absolute;left:-.4cqw;bottom:-.4cqw;width:.8cqw;height:.8cqw;border-radius:50%;background:var(--rust);box-shadow:0 0 1.2cqw var(--rust);animation:blink 2.4s steps(1) infinite}
+  .ares b{display:block;font-weight:400;font-size:1.25cqw;letter-spacing:.24em;color:var(--ink-2)}
+  .ares span{display:block;font-size:1cqw;letter-spacing:.2em;color:var(--rust-2);text-transform:uppercase}
+  @keyframes blink{50%{opacity:.25}}
+
+  /* ===== 左下：活動資訊 ===== */
+  .info{left:7cqw;bottom:5cqw}
+  .info .call{font-weight:500;font-size:1.9cqw;letter-spacing:.34em;color:var(--rust-2)}
+  .info .date{margin-top:2.2cqw;font-family:var(--sans);font-weight:300;font-size:5.2cqw;letter-spacing:.04em;line-height:1;white-space:nowrap}
+  .info .date i{font-style:normal;color:var(--rust-2);margin:0 .3em}
+  .info .place{margin-top:2.4cqw;font-weight:400;font-size:2.5cqw;letter-spacing:.14em}
+  .info .meta{margin-top:1.3cqw;font-weight:400;font-size:2.1cqw;letter-spacing:.12em;color:var(--ink-2)}
+  .info .num{font-family:var(--sans)}
+  .info .dot{margin:0 .7em;color:var(--ink-3)}
+
+  /* ===== 右下：QR ===== */
+  .apply{right:4.5cqw;bottom:5cqw;display:flex;align-items:flex-end;gap:1.8cqw}
+  .apply p{font-size:1.6cqw;letter-spacing:.3em;line-height:1;color:var(--ink-2)}
+  .qr{width:8.4cqw;aspect-ratio:1;padding:.6cqw;background:#ece5da}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="../素材/底圖.webp" alt="">
+  <div class="shade"></div>
+
+  <!-- 四角相框 -->
+  <header class="corner-tl">
+    <b>國立臺北科技大學 電機工程系</b>
+    <span>Dept. of Electrical Engineering, NTUT</span>
+  </header>
+  <div class="corner-tr">MARS<br>25.0°N / 226.1°E</div>
+
+  <!-- 主標區 -->
+  <section class="hero">
+    <h1><span>絕地</span><span>救援</span></h1>
+    <p class="zh just">赤境計畫</p>
+    <p class="en">PROJECT ARES</p>
+    <i class="rule"></i>
+    <p class="camp-en">2027 NTUT EE CAMP</p>
+    <p class="camp-zh just">北科電機冬令營</p>
+  </section>
+
+  <!-- 彩蛋：基地 -->
+  <div class="ares">
+    <b>ARES-1</b>
+    <span>Communication lost</span>
+  </div>
+
+  <!-- 左下：活動資訊 -->
+  <section class="info">
+    <p class="call">赤境救援先鋒隊　招募中</p>
+    <p class="date">2027.01.25<i>—</i>01.29</p>
+    <p class="place">國立臺北科技大學<span class="dot">·</span>五天四夜</p>
+    <p class="meta">報名 <span class="num">11.01 — 11.21</span><span class="dot">·</span>全國高中職學生 限額 100 名</p>
+  </section>
+
+  <!-- 右下：QR -->
+  <aside class="apply">
+    <p>掃描報名</p>
+    <div class="qr">
+      <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+      <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+        <g fill="#140c0a"><path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/></g>
+        <g fill="#ece5da"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+        <g fill="#140c0a">
+          <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+          <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+        </g>
+      </svg>
+    </div>
+  </aside>
+</main>
+</body>
+</html>

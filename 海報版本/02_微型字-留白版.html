@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜2027 NTUT EE CAMP</title>
+<!--
+  海報比例 2:3（與底圖 630×945 相同）。所有尺寸以 cqw（海報寬度 1%）為單位，可等比縮放。
+  座標參考（cqw，寬 100 × 高 150）：
+    火星  ≈ x79 y31   地平線 ≈ y105   基地天線 ≈ x72 y104   太空人 ≈ x83–87 y125–135
+  文字皆可直接修改；QR Code 請把 .qr 內的 <svg> 換成 <img src="qr.png" alt="報名 QR Code">。
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@200;300;400;500&family=Noto+Sans+TC:wght@300;400;500;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#eee7dc;
+    --ink-2:rgba(238,231,220,.74);
+    --ink-3:rgba(238,231,220,.46);
+    --rust:#c8462e;
+    --rust-2:#de7255;
+    --hair:rgba(238,231,220,.22);
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#040203}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ink);font-family:var(--tc);background:#060304;
+  }
+  .poster > *{position:absolute}
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  /* 地景下緣壓暗，讓左下資訊與 QR 落在「陰影帶」裡 */
+  .shade{
+    inset:0;pointer-events:none;
+    background:
+      linear-gradient(to top, rgba(5,2,2,.88) 0%, rgba(5,2,2,.6) 11%, rgba(5,2,2,0) 26%),
+      linear-gradient(to right, rgba(5,2,2,.45) 0%, rgba(5,2,2,0) 55%);
+  }
+  /* 細微底片顆粒 */
+  .grain{
+    inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .micro{font-family:var(--mono);font-size:1.3cqw;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);line-height:1.6}
+
+  /* ========== 左上：品牌識別 ========== */
+  .brand{left:7cqw;top:6.4cqw;display:flex;align-items:center;gap:2.2cqw}
+  .brand svg{width:4.6cqw;height:4.6cqw;flex:none}
+  .brand .rule{width:1px;align-self:stretch;background:var(--hair)}
+  .brand .id b{display:block;font-family:var(--sans);font-weight:500;font-size:1.9cqw;letter-spacing:.42em;line-height:1}
+  .brand .id span{display:block;margin-top:.9cqw;font-family:var(--sans);font-weight:400;font-size:1.15cqw;letter-spacing:.3em;color:var(--ink-3);text-transform:uppercase}
+
+  /* ========== 右上彩蛋：火星座標 ========== */
+  .coord{right:5cqw;top:6.4cqw;text-align:right}
+  .coord::after{content:"";display:block;width:1px;height:6cqw;margin:1.4cqw 0 0 auto;background:linear-gradient(var(--hair),transparent)}
+
+  /* ========== 左側中上：主標 ========== */
+  .title{left:7cqw;top:25cqw}
+  .title h1{
+    font-weight:900;font-size:14cqw;line-height:1.06;letter-spacing:.05em;
+    text-shadow:0 .3cqw 3cqw rgba(0,0,0,.5);
+  }
+  .title h1 span{display:block}
+  .title .codename{margin-top:4cqw;display:flex;align-items:center;gap:2.4cqw}
+  .title .codename strong{font-weight:400;font-size:3.5cqw;letter-spacing:.72em;color:var(--rust-2);margin-right:-.72em}
+  .title .codename i{width:4.5cqw;height:1px;background:var(--rust);opacity:.7}
+  .title .codename em{font-style:normal;font-family:var(--sans);font-weight:300;font-size:1.9cqw;letter-spacing:.62em}
+
+  /* 第三層：活動識別 */
+  .camp{left:7cqw;top:72cqw;display:flex;align-items:baseline;gap:2cqw}
+  .camp .tick{width:2.2cqw;height:1px;background:var(--ink-2);align-self:center}
+  .camp p{font-family:var(--sans);font-weight:400;font-size:2.35cqw;letter-spacing:.34em}
+  .camp p b{font-weight:500;color:var(--rust-2)}
+  .camp small{font-size:1.55cqw;letter-spacing:.5em;color:var(--ink-3)}
+
+  /* ========== 地景彩蛋：ARES-1 ========== */
+  .ares{left:72cqw;top:90.5cqw;height:13cqw;padding-left:1.6cqw;border-left:1px solid var(--hair)}
+  .ares::before{content:"";position:absolute;left:-.45cqw;bottom:-.45cqw;width:.9cqw;height:.9cqw;border-radius:50%;background:var(--rust);box-shadow:0 0 1.2cqw var(--rust);animation:blink 2.4s steps(1) infinite}
+  .ares b{display:block;font-family:var(--mono);font-weight:500;font-size:1.35cqw;letter-spacing:.24em;color:var(--ink-2)}
+  .ares span{display:block;font-family:var(--mono);font-size:1.05cqw;letter-spacing:.2em;color:var(--rust-2)}
+  @keyframes blink{50%{opacity:.25}}
+
+  /* ========== 左下：任務簡報（活動資訊） ========== */
+  .brief{left:7cqw;bottom:4.4cqw;width:62cqw}
+  .brief header{display:flex;align-items:center;gap:1.6cqw}
+  .brief header::after{content:"";flex:1;height:1px;background:var(--hair)}
+  .brief .when{margin-top:2.6cqw;display:flex;align-items:flex-end;gap:2.6cqw}
+  .brief .date{font-family:var(--sans);font-weight:300;font-size:4.5cqw;letter-spacing:.06em;line-height:1;white-space:nowrap}
+  .brief .date i{font-style:normal;color:var(--rust-2);margin:0 .35em;font-weight:200}
+  .brief .when .micro{line-height:1.45;padding-bottom:.2cqw}
+  .brief .facts{margin-top:3.6cqw;display:flex;gap:4.6cqw}
+  .brief .facts div{display:flex;flex-direction:column;gap:1cqw}
+  .brief .facts .micro{color:var(--rust-2);letter-spacing:.24em}
+  .brief .facts p{font-weight:400;font-size:2.6cqw;letter-spacing:.1em;line-height:1.2;white-space:nowrap}
+  .brief .facts p.num{font-family:var(--sans);font-weight:400;letter-spacing:.06em}
+  .brief .facts small{font-size:1.55cqw;letter-spacing:.14em;color:var(--ink-3)}
+
+  /* ========== 右下：QR ========== */
+  .apply{right:4cqw;bottom:4.4cqw;display:flex;align-items:flex-end;gap:1.8cqw}
+  .apply .micro{text-align:right;color:var(--ink-2);letter-spacing:.24em;line-height:1.7;margin-bottom:-.3cqw}
+  .qr{width:8.6cqw;aspect-ratio:1;padding:.7cqw;background:#efe9df;border-radius:.4cqw}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="../素材/底圖.webp" alt="">
+  <div class="shade"></div>
+  <div class="grain"></div>
+
+  <!-- 左上：品牌識別 -->
+  <header class="brand">
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <circle cx="24" cy="24" r="22.5" stroke="rgba(238,231,220,.5)" stroke-width="1"/>
+      <ellipse cx="24" cy="24" rx="22.5" ry="8" stroke="rgba(238,231,220,.25)" stroke-width="1" transform="rotate(-24 24 24)"/>
+      <circle cx="24" cy="24" r="6" fill="#c8462e"/>
+      <circle cx="44.2" cy="15" r="1.6" fill="#eee7dc"/>
+    </svg>
+    <i class="rule"></i>
+    <div class="id">
+      <b>NTUT EE</b>
+      <span>Dept. of Electrical Engineering</span>
+    </div>
+  </header>
+
+  <!-- 右上彩蛋：火星座標 -->
+  <div class="coord micro">Mars<br>25.0°N&nbsp;/&nbsp;226.1°E</div>
+
+  <!-- 主標 -->
+  <section class="title">
+    <h1><span>絕地</span><span>救援</span></h1>
+    <div class="codename">
+      <strong>赤境計畫</strong>
+      <i></i>
+      <em>PROJECT ARES</em>
+    </div>
+  </section>
+
+  <!-- 活動識別 -->
+  <section class="camp">
+    <span class="tick"></span>
+    <p><b>2027</b> NTUT EE CAMP</p>
+    <small>北科電機冬令營</small>
+  </section>
+
+  <!-- 地景彩蛋：基地 -->
+  <div class="ares">
+    <b>ARES-1</b>
+    <span>Communication lost</span>
+  </div>
+
+  <!-- 左下：任務簡報 -->
+  <section class="brief">
+    <header class="micro">Mission Briefing&nbsp;&nbsp;/&nbsp;&nbsp;任務簡報</header>
+    <div class="when">
+      <p class="date">2027.01.25<i>—</i>01.29</p>
+      <p class="micro">Mon — Fri<br>五天四夜</p>
+    </div>
+    <div class="facts">
+      <div>
+        <span class="micro">Location 地點</span>
+        <p>國立臺北科技大學</p>
+      </div>
+      <div>
+        <span class="micro">Apply 報名</span>
+        <p class="num">11.01 — 11.21</p>
+        <small>第一階段</small>
+      </div>
+      <div>
+        <span class="micro">Crew 對象</span>
+        <p>全國高中職學生</p>
+        <small>名額 100 人</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- 右下：QR -->
+  <aside class="apply">
+    <p class="micro">掃描報名<br>Scan to apply</p>
+    <div class="qr">
+      <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+      <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+        <g fill="#140c0a"><path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/></g>
+        <g fill="#efe9df"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+        <g fill="#140c0a">
+          <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+          <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+        </g>
+      </svg>
+    </div>
+  </aside>
+</main>
+</body>
+</html>

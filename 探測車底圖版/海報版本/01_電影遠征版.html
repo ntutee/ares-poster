@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜Mars Expedition</title>
+<!--
+  版本：Cinematic Mars Expedition Poster（探測車底圖）
+  原則：左邊負責資訊，右邊負責敘事。
+    左上 → 中：校系 / 主標 / 赤境計畫・PROJECT ARES / 2027 NTUT EE CAMP / 活動資訊＋QR
+    右側：天體、夕陽、探測車完全留給畫面；只有兩個極小 annotation（ARES-1、ARES ROVER）。
+    基地以下的岩石地景不放任何文字。
+  海報比例 2:3（同底圖 1024×1536），單位 cqw＝海報寬度 1%（寬 100 × 高 150）。
+  背景座標參考：
+    天體 ≈ x75–91 y7–31｜地平線 ≈ y77–82｜基地 ≈ x17–41 y74–82（高塔頂 ≈ x34 y73.7，圓頂 ≈ x35–40 y77.5）
+    探測車 ≈ x41–100 y84–123（鏡頭頭部 ≈ x62–72 y84.5–88）｜右側夕陽 ≈ x85 以右 y70–80
+  QR：把 .qr 內的 <svg> 換成 <img src="qr.png" alt="報名 QR Code">
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#ece2d2;               /* 暖象牙白：主要文字 */
+    --rust:#d2643f;                /* 火星橘紅：赤境計畫 / 強調 */
+    --gray:#a89a8a;                /* 暖灰：次要 */
+    --hair:rgba(236,226,210,.4);
+    --left:6.5cqw;                 /* 左側對齊線 */
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,monospace;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0a0605}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ivory);font-family:var(--tc);background:#120a07;
+  }
+  .poster > *{position:absolute}
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+  /* ===== 左上：校系 ===== */
+  .org{left:var(--left);top:5.2cqw;font-size:1.45cqw;letter-spacing:.36em;color:var(--gray)}
+
+  /* ===== 主標 ===== */
+  .title{left:calc(var(--left) - .55cqw);top:9.6cqw}
+  .title h1{font-weight:800;font-size:14.4cqw;line-height:.98;letter-spacing:.03em}
+  .title h1 span{display:block}
+
+  .caption{left:var(--left);top:40.6cqw;display:flex;align-items:baseline;gap:2.4cqw;white-space:nowrap}
+  .caption b{font-weight:500;font-size:3.2cqw;letter-spacing:.4em;color:var(--rust)}
+  .caption span{font-family:var(--sans);font-weight:600;font-size:1.45cqw;letter-spacing:.5em;color:color-mix(in srgb,var(--gray) 55%,var(--ivory))}
+
+  /* ===== 活動識別 ===== */
+  .camp{left:var(--left);top:47cqw}
+  .camp p{font-family:var(--sans);font-weight:600;font-size:3.3cqw;letter-spacing:.1em;line-height:1;white-space:nowrap}
+  .camp span{display:block;margin-top:1.4cqw;font-weight:500;font-size:2.2cqw;letter-spacing:.25em;line-height:1;color:var(--ivory);opacity:.85}
+
+  /* ===== 活動資訊（主標下方、基地上方） ===== */
+  .info{left:var(--left);top:57.4cqw;display:grid;grid-template-columns:auto auto;column-gap:8cqw;justify-content:start}
+  .info .meta{grid-column:1 / -1}
+  .date{font-family:var(--sans);font-weight:500;font-size:4.6cqw;letter-spacing:0;line-height:1;white-space:nowrap}
+  .date i{font-style:normal;color:var(--rust);margin:0 .18em}
+  .place{margin-top:1.8cqw;font-weight:500;font-size:2.5cqw;letter-spacing:.1em;line-height:1}
+  .meta{margin-top:1.6cqw;font-size:1.85cqw;letter-spacing:.1em;line-height:1;color:var(--gray);white-space:nowrap}
+  .meta .num{font-family:var(--sans);font-weight:500;color:var(--ivory)}
+  .meta .who{font-weight:500;color:var(--ivory)}
+  .meta .cap{font-size:1.7cqw}
+  .meta .dot{margin:0 .7em;opacity:.7}
+
+  .apply{display:flex;align-items:flex-end;gap:1.5cqw;align-self:end}
+  .qr{width:8.5cqw;aspect-ratio:1;padding:.7cqw;background:var(--ivory);border-radius:.25cqw}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+  .apply p{font-size:1.5cqw;letter-spacing:.3em;line-height:1.7;color:var(--gray)}
+  .apply p b{display:block;font-family:var(--sans);font-weight:500;font-size:1.2cqw;letter-spacing:.4em;color:var(--ivory)}
+
+  /* ===== 敘事細節（極小 annotation） ===== */
+  .note{font-family:var(--mono);text-transform:uppercase;white-space:nowrap;line-height:1.5;text-shadow:0 0 1cqw rgba(10,5,3,.6)}
+  .note b{display:block;font-weight:500;font-size:1cqw;letter-spacing:.26em;color:var(--ivory);opacity:.85}
+  .note span{display:block;font-size:.82cqw;letter-spacing:.22em;color:var(--ivory);opacity:.7}
+  .note span.lost{color:var(--rust);opacity:1}
+  .note svg{position:absolute;overflow:visible}
+
+  /* ARES-1：靠近基地圓頂（leader 指向 ≈ x37.5 y77.6） */
+  .base-note{left:44cqw;top:73.4cqw}
+  .base-note b{opacity:1}
+  .base-note{text-shadow:0 0 .6cqw rgba(10,5,3,.9),0 0 1.4cqw rgba(10,5,3,.7)}
+  .base-note svg{left:-7cqw;top:0;width:7cqw;height:4.4cqw}
+
+  /* ARES ROVER：leader 指向探測車鏡頭頭部（≈ x67.6 y84.6） */
+  .rover-note{left:72.6cqw;top:69.4cqw;text-shadow:0 0 .6cqw rgba(10,5,3,.85),0 0 1.4cqw rgba(10,5,3,.6)}
+  .rover-note b{font-size:1.13cqw;opacity:1}
+  .rover-note span{font-size:.93cqw;opacity:.85}
+  .rover-note svg{left:-5.4cqw;top:0;width:5.4cqw;height:15.4cqw}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="../素材/底圖-探測車.png" alt="">
+
+  <!-- 左上：校系 -->
+  <p class="org">國立臺北科技大學 電機工程系</p>
+
+  <!-- 主標 -->
+  <section class="title">
+    <h1><span>絕地</span><span>救援</span></h1>
+  </section>
+
+  <div class="caption">
+    <b>赤境計畫</b>
+    <span>PROJECT ARES</span>
+  </div>
+
+  <!-- 活動識別 -->
+  <div class="camp">
+    <p>2027 NTUT EE CAMP</p>
+    <span>北科電機冬令營</span>
+  </div>
+
+  <!-- 活動資訊 + QR -->
+  <section class="info">
+    <div>
+      <p class="date">2027.01.25<i>—</i>01.29</p>
+      <p class="place">國立臺北科技大學</p>
+    </div>
+    <div class="apply">
+      <div class="qr">
+        <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+        <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+          <g fill="#140c0a"><path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/></g>
+          <g fill="#ece2d2"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+          <g fill="#140c0a">
+            <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+            <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+          </g>
+        </svg>
+      </div>
+      <p><b>APPLY</b>掃描報名</p>
+    </div>
+    <p class="meta">報名 <span class="num">11.01 — 11.21</span><span class="dot">·</span><span class="who">全國高中職學生</span><span class="dot">·</span><span class="cap">限額 100 名</span></p>
+  </section>
+
+  <!-- 基地 Easter egg -->
+  <div class="note base-note">
+    <svg viewBox="0 0 70 44" aria-hidden="true">
+      <polyline points="68,8 20,8 -6,40" fill="none" stroke="#ece2d2" stroke-opacity=".35" stroke-width=".5" vector-effect="non-scaling-stroke"/>
+      <circle cx="-6.5" cy="40.5" r="1" fill="#d2643f"/>
+    </svg>
+    <b>ARES-1</b>
+    <span class="lost">Communication lost</span>
+  </div>
+
+  <!-- 探測車 annotation -->
+  <div class="note rover-note">
+    <svg viewBox="0 0 54 154" aria-hidden="true">
+      <polyline points="52,11 14,11 -4,151" fill="none" stroke="#ece2d2" stroke-opacity=".22" stroke-width=".5" vector-effect="non-scaling-stroke"/>
+      <circle cx="-4.4" cy="152" r="1" fill="#ece2d2" fill-opacity=".7"/>
+    </svg>
+    <b>ARES Rover</b>
+    <span>Autonomous exploration unit</span>
+  </div>
+</main>
+</body>
+</html>

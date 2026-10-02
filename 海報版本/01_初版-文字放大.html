@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜2027 NTUT EE CAMP</title>
+<!--
+  海報尺寸：2:3（底圖 630×945）。
+  所有尺寸以 cqw（海報寬度的 1%）為單位，整張海報可等比縮放到任何大小。
+  文字皆為一般 HTML，可直接修改；QR Code 請替換 .qr 內的 <svg> 為 <img src="你的QR.png" alt="報名 QR Code">。
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#efe8dd;          /* 主要文字：暖白 */
+    --ink-dim:rgba(239,232,221,.62);
+    --rust:#c9472f;         /* 火星紅 */
+    --rust-soft:#d9694c;
+    --line:rgba(239,232,221,.28);
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#050304}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  /* ---------- 海報容器 ---------- */
+  .poster{
+    position:relative;
+    width:min(100vw, 100vh * 2 / 3);
+    aspect-ratio:2/3;
+    container-type:inline-size;
+    overflow:hidden;
+    color:var(--ink);
+    font-family:var(--tc);
+    background:#070405;
+  }
+  .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  /* 底部暗角：讓左下資訊區在亮地平線上仍清楚 */
+  .scrim{
+    position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(to top, rgba(6,3,3,.82) 0%, rgba(6,3,3,.55) 16%, rgba(6,3,3,0) 32%),
+      radial-gradient(120% 60% at 0% 100%, rgba(6,3,3,.55), rgba(6,3,3,0) 60%);
+  }
+
+  /* ---------- 頂部機構標示 ---------- */
+  .org{
+    position:absolute;left:7cqw;top:6cqw;
+    font-family:var(--sans);text-transform:uppercase;
+  }
+  .org b{display:block;font-weight:600;font-size:2.5cqw;letter-spacing:.42em}
+  .org span{display:block;margin-top:.9cqw;font-weight:400;font-size:1.45cqw;letter-spacing:.24em;color:var(--ink-dim)}
+
+  /* ---------- 主視覺標題 ---------- */
+  .title{position:absolute;left:7cqw;top:19cqw}
+  .title h1{
+    font-family:var(--tc);font-weight:900;
+    font-size:19.5cqw;line-height:1.04;letter-spacing:.02em;
+    color:var(--ink);
+    text-shadow:0 .4cqw 2.4cqw rgba(0,0,0,.45);
+  }
+  .title h1 span{display:block}
+  .title .sub{
+    margin-top:3.2cqw;
+    font-family:var(--tc);font-weight:700;
+    font-size:6.4cqw;letter-spacing:.3em;line-height:1;
+    color:var(--rust);
+  }
+  .title .en{
+    margin-top:3cqw;
+    font-family:var(--sans);font-weight:300;
+    font-size:3.3cqw;letter-spacing:.56em;line-height:1;
+  }
+
+  /* ---------- 營隊名稱（主標下方、放大） ---------- */
+  .camp{position:absolute;left:7cqw;top:81cqw}
+  .camp::before{content:"";display:block;width:7cqw;height:.35cqw;background:var(--rust);margin-bottom:3.4cqw}
+  .camp .name{
+    font-family:var(--sans);font-weight:600;
+    font-size:5.6cqw;letter-spacing:.12em;line-height:1;white-space:nowrap;
+  }
+  .camp .name em{font-style:normal;color:var(--rust-soft)}
+  .camp .zh{
+    margin-top:1.8cqw;font-weight:500;
+    font-size:2.9cqw;letter-spacing:.32em;color:var(--ink-dim);
+  }
+
+  /* ---------- 左下：主要活動資訊 ---------- */
+  .info{position:absolute;left:7cqw;bottom:6.5cqw;width:56cqw}
+  .info .date{
+    font-family:var(--sans);font-weight:500;
+    font-size:6.6cqw;letter-spacing:.04em;line-height:1;white-space:nowrap;
+  }
+  .info .date i{font-style:normal;font-weight:300;color:var(--rust-soft);margin:0 .25em}
+  .info .days{
+    margin-top:1.6cqw;font-size:2.6cqw;font-weight:500;letter-spacing:.24em;color:var(--ink-dim);
+  }
+  .info dl{
+    margin-top:3.6cqw;padding-top:3cqw;border-top:1px solid var(--line);
+    display:grid;grid-template-columns:auto 1fr;column-gap:3.4cqw;row-gap:1.9cqw;
+    align-items:baseline;
+  }
+  .info dt{font-size:2.5cqw;font-weight:700;letter-spacing:.2em;color:var(--rust-soft)}
+  .info dd{font-size:3.5cqw;font-weight:500;letter-spacing:.06em;line-height:1.25}
+  .info dd small{font-size:2.5cqw;font-weight:400;color:var(--ink-dim);letter-spacing:.04em;margin-left:.5em}
+  .info dd .num{font-family:var(--sans);font-weight:500}
+
+  /* ---------- 右下：QR Code ---------- */
+  .apply{
+    position:absolute;right:4.2cqw;bottom:4.2cqw;
+    display:flex;align-items:flex-end;gap:2.4cqw;
+  }
+  .apply .label{text-align:right}
+  .apply .label b{display:block;font-size:3cqw;font-weight:700;letter-spacing:.2em}
+  .apply .label span{display:block;margin-top:.8cqw;font-family:var(--sans);font-size:1.6cqw;font-weight:500;letter-spacing:.3em;color:var(--ink-dim)}
+  .apply .label small{display:block;margin-top:1.4cqw;font-family:var(--sans);font-size:1.7cqw;letter-spacing:.06em;color:var(--ink-dim)}
+  .qr{
+    width:10.6cqw;aspect-ratio:1;padding:.9cqw;
+    background:#f4efe7;border-radius:.6cqw;
+    box-shadow:0 0 0 1px rgba(255,255,255,.12),0 1cqw 3cqw rgba(0,0,0,.5);
+  }
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+</style>
+</head>
+<body>
+  <main class="poster">
+    <img class="bg" src="../素材/底圖.webp" alt="">
+    <div class="scrim"></div>
+
+    <header class="org">
+      <b>NTUT</b>
+      <span>Department of Electrical Engineering</span>
+    </header>
+
+    <section class="title">
+      <h1><span>絕地</span><span>救援</span></h1>
+      <p class="sub">赤境計畫</p>
+      <p class="en">PROJECT ARES</p>
+    </section>
+
+    <section class="camp">
+      <p class="name"><em>2027</em> NTUT EE CAMP</p>
+      <p class="zh">北科電機冬令營</p>
+    </section>
+
+    <section class="info">
+      <p class="date">2027.01.25<i>—</i>01.29</p>
+      <p class="days">MON — FRI ・ 五天四夜</p>
+      <dl>
+        <dt>地點</dt>
+        <dd>國立臺北科技大學</dd>
+        <dt>報名</dt>
+        <dd><span class="num">11.01 — 11.21</span><small>第一階段</small></dd>
+        <dt>對象</dt>
+        <dd>全國高中職學生<small>名額 100 人</small></dd>
+      </dl>
+    </section>
+
+    <aside class="apply">
+      <div class="label">
+        <b>掃描報名</b>
+        <span>SCAN TO APPLY</span>
+        <small>ntuteecamp@gmail.com</small>
+      </div>
+      <div class="qr">
+        <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+        <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+          <g fill="#140c0a">
+            <path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/>
+          </g>
+          <g fill="#f4efe7"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+          <g fill="#140c0a">
+            <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+            <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+          </g>
+        </svg>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>

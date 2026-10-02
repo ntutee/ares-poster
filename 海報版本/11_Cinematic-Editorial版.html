@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜Cinematic Editorial</title>
+<!--
+  版本：Cinematic Editorial Poster
+  構圖：
+    左上＝主標兩行（約占畫面寬 40%）＋ 赤境計畫 / PROJECT ARES caption ＋ 2027 NTUT EE CAMP
+    右中＝一個小型 editorial information block（日期頂端與 2027 NTUT EE CAMP 同高，兩側用同一條橫向對齊線連成一張海報）
+    中央與左下的黑色天空、火星、基地、地平線、太空人全部留給照片。
+  文字避開：火星≈x76–83 y26–35｜基地≈x65–82 y104–108｜地平線≈y105｜太空人≈x83–87 y125–135
+  海報比例 2:3（同底圖 630×945），單位 cqw＝海報寬度 1%（寬 100 × 高 150）。
+  QR：把 .qr 內的 <svg> 換成 <img src="qr.png" alt="報名 QR Code">
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#ebe3d6;
+    --rust:#d0603f;
+    --gray:#a59b8f;
+    --row:65cqw;                   /* 左右共用的橫向對齊線 */
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#040203}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ivory);font-family:var(--tc);background:#060304;
+  }
+  .poster > *{position:absolute}
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+  /* ===== 左上 ===== */
+  .org{left:6.5cqw;top:6cqw;font-size:1.45cqw;letter-spacing:.36em;color:var(--gray)}
+
+  .title{left:6.5cqw;top:12.5cqw}
+  .title h1{font-weight:800;font-size:20.5cqw;line-height:1.02;letter-spacing:.02em}
+  .title h1 span{display:block}
+
+  .caption{left:7.2cqw;top:57.6cqw;display:flex;align-items:baseline;gap:2.6cqw;white-space:nowrap}
+  .caption b{font-weight:500;font-size:3.3cqw;letter-spacing:.42em;color:var(--rust)}
+  .caption span{font-family:var(--sans);font-weight:500;font-size:1.5cqw;letter-spacing:.52em;color:var(--gray)}
+
+  .camp{left:7.2cqw;top:var(--row)}
+  .camp p{font-family:var(--sans);font-weight:600;font-size:3.1cqw;letter-spacing:.1em;line-height:1;white-space:nowrap}
+  .camp span{display:block;margin-top:1.6cqw;font-weight:500;font-size:2.1cqw;letter-spacing:.42em;line-height:1;color:var(--gray)}
+
+  /* ===== 右中：editorial information block ===== */
+  .info{left:57cqw;top:calc(var(--row) - .5cqw);width:36cqw}
+
+  .date{font-family:var(--sans);font-weight:500;font-size:5.4cqw;letter-spacing:-.01em;line-height:1;white-space:nowrap}
+  .date i{font-style:normal;color:var(--rust);margin:0 .16em}
+  .where{margin-top:1.6cqw;font-size:2.2cqw;letter-spacing:.12em;line-height:1.5}
+  .where small{display:block;font-family:var(--sans);font-weight:500;font-size:1.3cqw;letter-spacing:.32em;color:var(--gray)}
+
+  .lower{margin-top:4.4cqw;display:flex;justify-content:space-between;align-items:flex-end}
+  .k{display:block;font-family:var(--sans);font-weight:500;font-size:1.2cqw;letter-spacing:.32em;line-height:1;text-transform:uppercase;color:var(--gray)}
+  .v{margin-top:1.1cqw;font-weight:500;font-size:2.3cqw;letter-spacing:.08em;line-height:1.2;white-space:nowrap}
+  .v.num{font-family:var(--sans);font-size:2.9cqw;letter-spacing:.01em}
+  .v small{display:block;margin-top:.5cqw;font-size:1.7cqw;font-weight:400;color:var(--gray)}
+  .lower .item + .item{margin-top:3cqw}
+
+  .apply{display:flex;flex-direction:column;align-items:flex-end;gap:1.1cqw}
+  .qr{width:10.5cqw;aspect-ratio:1;padding:.6cqw;background:var(--ivory)}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+  .apply .k{margin-right:-.32em}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="../素材/底圖.webp" alt="">
+
+  <p class="org">國立臺北科技大學 電機工程系</p>
+
+  <section class="title">
+    <h1><span>絕地</span><span>救援</span></h1>
+  </section>
+
+  <div class="caption">
+    <b>赤境計畫</b>
+    <span>PROJECT ARES</span>
+  </div>
+
+  <div class="camp">
+    <p>2027 NTUT EE CAMP</p>
+    <span>北科電機冬令營</span>
+  </div>
+
+  <section class="info">
+    <p class="date">01.25<i>—</i>01.29</p>
+    <p class="where">國立臺北科技大學<small>2027 · NTUT · TAIPEI · 五天四夜</small></p>
+
+    <div class="lower">
+      <div>
+        <div class="item">
+          <span class="k">Application　報名</span>
+          <p class="v num">11.01 — 11.21</p>
+        </div>
+        <div class="item">
+          <span class="k">High School Students</span>
+          <p class="v">全國高中職學生<small>限額 100 名</small></p>
+        </div>
+      </div>
+      <div class="apply">
+        <div class="qr">
+          <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+          <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+            <g fill="#140c0a"><path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/></g>
+            <g fill="#ebe3d6"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+            <g fill="#140c0a">
+              <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+              <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+            </g>
+          </svg>
+        </div>
+        <span class="k">Scan 掃描報名</span>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

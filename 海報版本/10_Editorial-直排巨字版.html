@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜Editorial</title>
+<!--
+  版本：Swiss Editorial Typography + Cinematic Mars Photography
+  概念：中文字本身就是構圖。
+    「絕地救援」直排四個巨大字，從畫面頂端（上緣略被裁切）一路落到地平線，
+    像一根立在左側黑色天空裡的字柱；
+    其餘文字全部對齊同一條網格線（x=36cqw），在右側天空裡建立理性的 editorial 結構。
+  背景留給照片：火星（x76–83 y26–35）、基地（x65–82 y104–108）、太空人（x83–87 y125–135）、
+  地平線以下完全不放字。
+  海報比例 2:3（同底圖 630×945），單位 cqw＝海報寬度 1%（寬 100 × 高 150）。
+  QR：把 .qr 內的 <svg> 換成 <img src="qr.png" alt="報名 QR Code">
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#ebe3d6;               /* 主要文字 */
+    --rust:#d0603f;                /* 唯一主要紅色：赤境計畫 */
+    --gray:#a59b8f;                /* 少量暖灰 */
+    --hair:rgba(235,227,214,.3);
+    --grid:36cqw;                  /* 右側網格起始線 */
+    --edge:93cqw;                  /* 右側網格結束線 */
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+    --serif:"Noto Serif TC","PMingLiU",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#040203}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ivory);font-family:var(--tc);background:#060304;
+  }
+  .poster > *{position:absolute}
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+  /* ===== 巨大直排主標 ===== */
+  .title{left:-1.6cqw;top:-3.2cqw}
+  .title h1{font-family:var(--serif);font-weight:900;font-size:29cqw;line-height:.9;color:var(--ivory)}
+  .title h1 span{display:block}
+
+  /* ===== 右上：赤境計畫標籤 / PROJECT ARES / 校系 ===== */
+  .tag{left:var(--grid);top:7cqw;display:flex;align-items:center;gap:3cqw}
+  .tag b{
+    font-weight:700;font-size:3cqw;line-height:1;letter-spacing:.42em;
+    padding:1.1cqw .98cqw 1.1cqw 1.4cqw;background:var(--rust);color:var(--ivory);
+  }
+  .tag span{font-family:var(--sans);font-weight:500;font-size:1.6cqw;letter-spacing:.6em}
+
+  .org{right:calc(100cqw - var(--edge));top:16.2cqw;text-align:right;font-size:1.35cqw;letter-spacing:.3em;line-height:1.7;color:var(--gray)}
+  .org::before{content:"";display:block;width:6cqw;height:1px;background:var(--hair);margin:0 0 1.6cqw auto}
+
+  /* ===== 右下：editorial block ===== */
+  .info{left:var(--grid);top:61cqw;width:calc(var(--edge) - var(--grid))}
+  .rule{display:block;height:1px;background:var(--hair)}
+
+  .camp{padding:2.4cqw 0 2.4cqw}
+  .camp p{font-family:var(--sans);font-weight:600;font-size:3cqw;letter-spacing:.08em;line-height:1}
+  .camp span{display:block;margin-top:1.5cqw;font-weight:500;font-size:2.2cqw;letter-spacing:.36em;line-height:1;color:var(--ivory)}
+
+  .k{display:block;font-family:var(--sans);font-weight:500;font-size:1.25cqw;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);line-height:1}
+  .k i{font-style:normal;font-family:var(--tc);letter-spacing:.3em;margin-left:.8em}
+
+  .date{padding:2.4cqw 0 2.6cqw}
+  .date p{margin-top:1.6cqw;font-family:var(--sans);font-weight:500;font-size:5.6cqw;letter-spacing:-.005em;line-height:1;white-space:nowrap}
+  .date p i{font-style:normal;color:var(--rust);margin:0 .18em}
+
+  .colophon{display:grid;grid-template-columns:1fr auto;column-gap:3cqw;padding-top:2.6cqw}
+  .colophon dl{display:grid;grid-template-columns:9cqw 1fr;row-gap:2cqw;align-items:baseline}
+  .colophon dd{font-weight:500;font-size:2.5cqw;letter-spacing:.06em;line-height:1.2;white-space:nowrap}
+  .colophon dd .num{font-family:var(--sans);letter-spacing:.02em}
+  .colophon dd small{font-size:1.9cqw;font-weight:400;letter-spacing:.08em;color:var(--gray);margin-left:.4em}
+
+  .apply{display:flex;flex-direction:column;align-items:flex-end;gap:1.1cqw}
+  .qr{width:10.5cqw;aspect-ratio:1;padding:.6cqw;background:var(--ivory)}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+  .apply .k{letter-spacing:.3em;margin-right:-.3em}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="../素材/底圖.webp" alt="">
+
+  <!-- 巨大直排主標 -->
+  <section class="title">
+    <h1><span>絕</span><span>地</span><span>救</span><span>援</span></h1>
+  </section>
+
+  <!-- 赤境計畫 / PROJECT ARES -->
+  <div class="tag">
+    <b>赤境計畫</b>
+    <span>PROJECT ARES</span>
+  </div>
+
+  <p class="org">國立臺北科技大學<br>電機工程系</p>
+
+  <!-- editorial block -->
+  <section class="info">
+    <i class="rule"></i>
+    <div class="camp">
+      <p>2027 NTUT EE CAMP</p>
+      <span>北科電機冬令營</span>
+    </div>
+    <i class="rule"></i>
+
+    <div class="date">
+      <span class="k">Date<i>日期</i></span>
+      <p>2027.01.25<i>—</i>01.29</p>
+    </div>
+    <i class="rule"></i>
+
+    <div class="colophon">
+      <dl>
+        <dt class="k">Venue</dt>
+        <dd>國立臺北科技大學</dd>
+        <dt class="k">Apply</dt>
+        <dd><span class="num">11.01 — 11.21</span></dd>
+        <dt class="k">For</dt>
+        <dd>全國高中職學生<small>/ 限額 100 名</small></dd>
+      </dl>
+      <div class="apply">
+        <div class="qr">
+          <!-- QR 佔位圖：請換成 <img src="qr.png" alt="報名 QR Code"> -->
+          <svg viewBox="0 0 21 21" shape-rendering="crispEdges" aria-label="報名 QR Code">
+            <g fill="#140c0a"><path d="M0 0h7v7H0zM14 0h7v7h-7zM0 14h7v7H0z"/></g>
+            <g fill="#ebe3d6"><path d="M1 1h5v5H1zM15 1h5v5h-5zM1 15h5v5H1z"/></g>
+            <g fill="#140c0a">
+              <path d="M2 2h3v3H2zM16 2h3v3h-3zM2 16h3v3H2z"/>
+              <path d="M8 0h1v1H8zM10 1h2v1h-2zM9 3h1v2H9zM11 4h2v1h-2zM8 6h1v1H8zM10 6h1v1h-1zM12 6h1v1h-1zM0 8h1v1H0zM2 8h3v1H2zM6 8h2v1H6zM9 8h1v2H9zM12 8h2v1h-2zM15 8h1v1h-1zM17 8h2v1h-2zM20 8h1v2h-1zM1 10h2v1H1zM4 10h1v2H4zM7 10h1v1H7zM11 10h3v1h-3zM16 10h1v2h-1zM18 10h1v1h-1zM0 12h1v1H0zM6 12h3v1H6zM10 12h1v2h-1zM13 12h2v1h-2zM18 12h2v1h-2zM8 14h1v1H8zM12 14h1v1h-1zM14 14h3v1h-3zM19 14h2v1h-2zM9 16h2v1H9zM13 16h1v2h-1zM15 16h1v1h-1zM18 16h1v2h-1zM8 18h1v2H8zM10 18h2v1h-2zM15 18h2v1h-2zM20 18h1v1h-1zM11 20h1v1h-1zM13 20h2v1h-2zM17 20h2v1h-2z"/>
+            </g>
+          </svg>
+        </div>
+        <span class="k">掃描報名</span>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
