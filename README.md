@@ -4,7 +4,7 @@
 
 海報以 HTML/CSS 排版，所有文字都可以直接修改，QR Code 和文字都是向量，可以輸出成任意解析度。
 
-<p align="center"><img src="輸出/絕地救援-定稿-4K.png" alt="絕地救援・赤境計畫 定稿海報" width="420"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ntutee/ares-poster/main/輸出/絕地救援-定稿-4K.png" alt="絕地救援・赤境計畫 定稿海報" width="420"></p>
 
 ## 第一交付版（v1.0）
 
