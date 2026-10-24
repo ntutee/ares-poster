@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>絕地救援・赤境計畫｜2027 第十一屆北科電機冬令營</title>
+<!--
+  構圖：左上主標 → 留白 → 左中 Mission Data（黑色天空）→ 視線落到火星、基地、太空人。
+  地景（y > 104cqw）保持乾淨，不放活動資訊。
+  海報比例 2:3（同底圖 630×945），尺寸單位 cqw＝海報寬度 1%（寬 100 × 高 150）。
+  背景座標參考：火星≈x79 y31｜地平線≈y105｜基地天線頂端≈x72 y103.5｜太空人≈x83–87 y125–135
+
+  印刷閱讀層級（以 A2 寬 42cm 計，1cqw ≈ 4.2mm）：
+    3–5 m ：絕地救援（12.6cqw）／2027 NTUT EE CAMP（2.35cqw）／營期日期（6.2cqw）
+    1–2 m ：地點／報名時間／對象／報名費（2.92cqw）
+    近看   ：Mission Data 標籤、11.25 正備取公布、Mars 座標、ARES-1（1.1–1.5cqw）
+
+  定稿版（以 07 為基礎）：加入 06 CONTACT 聯絡區（左下 billing block），並為印刷加粗部分字重。
+  13 版（以 12 為基礎）：Mission Data 上移到 y65.4，「掃描報名」改直排於 QR 左側，三欄改為 2×2 資訊格（40／60）：
+    02 地點｜03 對象（限額改同行）／04 報名＋11.25 正備取公布節點｜05 報名費（個人／三人團報，票根式虛線分隔）
+    資訊區底部須停在 y≈103 以上（y105 是地平線最亮的霞光帶）。
+  14 版（以 13 為基礎）：資訊區 04／05 列背後加一層暗角（背景亮度約降 25–35%，地平線光帶不變）；
+    ARES-1 標註文字拉高到 y93–96，不再和報名費同高。
+  15 版（以 14 為基礎，加入工作人員手機與信箱，聯絡人皆已同意公開）：
+    主標整組縮小約 5%、上移 1cqw，主標與 Mission Data 之間的留白從約 5 增加到約 8cqw；
+    06 CONTACT 改為四欄通訊名冊（職稱＋姓名／手機／信箱），標題列比照 Mission Data 右側放單位名稱，
+    頁尾放系學會電話與營隊信箱；聯絡區寬 70cqw，右緣停在 x77，太空人（x83）周圍保持淨空。
+  16 版（以 15 為基礎，只調層級不加元素）：營期日期縮 9%（6.2→5.65cqw）；地點與對象之間拉開（欄寬 40→44%）；
+    「掃描報名」改橫排、底部對齊 QR；NT$ 縮成價格左上角小字；聯絡區手機降到 75%、頁尾數值 70%，
+    Email（含營隊信箱）改 IBM Plex Mono（1 與 l 分得清楚）。
+  17 版（以 16 為基礎，不加元素）：營隊中文名改為全名「第十一屆北科電機冬令營」，與上方 2027 NTUT EE CAMP 兩端對齊，
+    英文行帶年份、中文行帶屆次；整行同為暖灰，字距由約 1.1em 收到約 .4em（接近左上角系名的 .36em）。
+    試過屆次改象牙白／橘紅（搶過營隊名、與赤境計畫撞色）、主標右側直排、細線標題列，都比併入全名多一層資訊。
+  色彩只用三種：象牙白 --ivory／火星橘紅 --rust／暖灰 --gray（較弱 --gray-2）
+  底圖：素材/底圖-AI放大4x.png（原圖 630×945 經 Real-ESRGAN x4plus 放大至 2520×3780，並疊回原圖星點）
+  列印：@page 為 400×600mm（2:3），用瀏覽器「列印 → 另存 PDF」或 headless 輸出即為向量文字 PDF
+  QR：素材/報名QR-圓點.svg（方格備用：報名QR-方格.svg）→ https://ntut-ee-redirect.pages.dev/
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#ebe3d6;               /* 主資訊：暖象牙白 */
+    --rust:#d0603f;                /* 強調：火星橘紅 */
+    --gray:#a59b8f;                /* 次要：暖灰 */
+    --gray-2:#7d746b;              /* 更弱的暖灰 */
+    --hair:rgba(235,227,214,.2);   /* 細線（象牙白低透明） */
+    --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",Consolas,monospace;
+    --tc:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+    --serif:"Noto Serif TC","PMingLiU",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#040203}
+  body{display:grid;place-items:center;overflow:hidden}
+
+  .poster{
+    position:relative;width:min(100vw, 100vh * 2 / 3);aspect-ratio:2/3;
+    container-type:inline-size;overflow:hidden;
+    color:var(--ivory);font-family:var(--tc);background:#060304;
+  }
+  .poster > *{position:absolute}
+  @page{size:400mm 600mm;margin:0}
+  @media print{
+    html,body{height:auto;background:#060304;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{display:block}
+    .poster{width:400mm}
+  }
+  .bg{inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+  .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em}
+
+  /* ===== 角落 ===== */
+  .corner-tl{left:7cqw;top:6cqw;font-weight:500;font-size:1.5cqw;letter-spacing:.36em;color:var(--gray)}
+  .corner-tr{right:7cqw;top:6cqw;text-align:right;font-size:1.2cqw;line-height:1.7;color:var(--gray-2)}
+  .corner-tr::after{content:"";display:block;width:1px;height:9cqw;margin:1.6cqw 0 0 auto;background:linear-gradient(var(--hair),transparent)}
+
+  /* ===== 主標 ===== */
+  .hero{left:7cqw;top:11.5cqw;width:max-content}
+  .hero h1{font-family:var(--serif);font-weight:900;font-size:12cqw;line-height:1.03;letter-spacing:.06em;margin-right:-.06em;color:var(--ivory)}
+  .hero h1 span{display:block}
+  .hero .zh{margin-top:1.9cqw;font-weight:600;font-size:3.33cqw;line-height:1;letter-spacing:1.09em;margin-right:-1.09em;color:var(--rust)}
+  .hero .en{margin-top:1.81cqw;font-family:var(--sans);font-weight:500;font-size:1.6cqw;line-height:1;letter-spacing:.66em;margin-right:-.66em;color:var(--gray)}
+  .hero .camp{margin-top:3.62cqw;padding-top:2.67cqw;border-top:1px solid var(--hair)}
+  .hero .camp-en{font-family:var(--sans);font-weight:600;font-size:2.24cqw;letter-spacing:.14em;line-height:1;white-space:nowrap}
+  .hero .camp-zh{margin-top:1.52cqw;font-weight:500;font-size:2.09cqw;line-height:1;color:var(--gray);text-align:justify;text-align-last:justify}
+
+  /* ===== Mission Data（左中黑色天空） ===== */
+  .data{left:7cqw;top:65.9cqw;width:66cqw}
+  .data .head{display:flex;align-items:center;gap:1.6cqw;font-size:1.2cqw;color:var(--gray)}
+  .data .head i{flex:1;height:1px;background:var(--hair)}
+  .data .head b{font-family:var(--tc);font-weight:500;font-size:1.3cqw;letter-spacing:.3em;text-transform:none;color:var(--rust)}
+
+  .label{display:block;font-family:var(--mono);font-weight:500;font-size:1.1cqw;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-2);line-height:1;white-space:nowrap}
+  .label em{font-style:normal;color:var(--rust);margin-right:1em}
+  .label span{font-family:var(--tc);letter-spacing:.3em;margin-left:.6em;color:var(--gray)}
+
+  .launch{margin-top:2.3cqw;display:flex;align-items:flex-start;justify-content:space-between}
+  .launch .date{margin-top:1.5cqw;font-family:var(--sans);font-weight:500;font-size:5.65cqw;letter-spacing:.01em;line-height:.9;white-space:nowrap}
+  .launch .date i{font-style:normal;font-weight:300;color:var(--rust);margin:0 .22em}
+  .launch .note{margin-top:1.6cqw;font-weight:500;font-size:1.6cqw;letter-spacing:.3em;color:var(--gray)}
+  .launch .note .y{font-family:var(--sans);letter-spacing:.2em;color:var(--rust);margin-right:.8em}
+
+  /* 掃描報名：橫排在 QR 左側、底部對齊 QR，右接一小段橘紅引線（同 ARES-1 標註的引線語言） */
+  .apply{display:flex;align-items:flex-end;gap:1cqw}
+  .qr{width:11.5cqw;aspect-ratio:1;padding:0;background:var(--ivory)}
+  .qr svg,.qr img{display:block;width:100%;height:100%}
+  .apply span{display:flex;align-items:center;gap:1cqw;font-weight:500;font-size:1.55cqw;letter-spacing:.34em;line-height:1;white-space:nowrap;color:color-mix(in srgb,var(--ivory) 85%,#060304)}
+  .apply span::after{content:"";width:2.6cqw;height:1px;background:var(--rust);opacity:.8}
+
+  /* 02–05：2×2 資訊格，左欄 44%（地點／報名）、右欄 56%（對象／報名費）；地點與對象之間留約 5cqw，避免遠看連成一句 */
+  .facts{
+    margin-top:1.9cqw;padding-top:1.9cqw;border-top:1px solid var(--hair);
+    display:grid;grid-template-columns:44% 56%;
+  }
+  .facts .v{margin-top:1cqw;font-weight:600;font-size:2.92cqw;letter-spacing:.02em;line-height:1.15;white-space:nowrap}
+  .facts .v.num{font-family:var(--sans);font-weight:500;letter-spacing:.01em}
+  .facts .v small{margin-left:1.5cqw;font-weight:500;font-size:1.5cqw;letter-spacing:.18em;color:var(--gray-2)}
+
+  /* 04 報名：報名期間 → 11.25 正備取公布（節點沿用 ARES-1 的圓環＋圓點） */
+  .roster{display:flex;align-items:center;gap:.8cqw;margin-top:.8cqw;font-weight:500;font-size:1.5cqw;letter-spacing:.18em;line-height:1;white-space:nowrap;color:var(--gray)}
+  .roster svg{flex:none;width:1.5cqw;height:1.5cqw;overflow:visible}
+  .roster b{font-family:var(--sans);font-weight:600;letter-spacing:.04em;color:var(--rust)}
+
+  /* 05 報名費：兩種票價並排，中間是票根式虛線 */
+  .tiers{display:flex}
+  .tier{padding-right:2.8cqw}
+  .tier + .tier{padding:0 0 0 2.8cqw;border-left:1px dashed rgba(235,227,214,.36)}
+  .tier .v{display:flex;align-items:baseline}
+  .tier .v small{margin:0}
+  .tier .v .cur{align-self:flex-start;margin:.55cqw .3cqw 0 0;font-size:1cqw;letter-spacing:.06em;line-height:1;color:var(--gray-2)}
+  .tier .v .per{margin-left:.35cqw;font-family:var(--tc);letter-spacing:.06em;color:var(--gray)}
+  .who{display:flex;align-items:center;gap:.8cqw;margin-top:.8cqw;font-weight:500;font-size:1.5cqw;letter-spacing:.18em;line-height:1;white-space:nowrap;color:var(--gray)}
+  .dots{display:flex;gap:.32cqw}
+  .dots i{width:.62cqw;height:.62cqw;border-radius:50%;background:color-mix(in srgb,var(--ivory) 70%,#060304)}
+  .squad .dots i{background:var(--rust)}
+
+  /* ===== 暗角：第一層壓暗 04／05 列背後的左側霞光（中心 x24 y99.5，只到地平線上緣），第二層托住左下聯絡區 ===== */
+  .shade{inset:0;pointer-events:none;
+    background:
+      radial-gradient(40% 4.4% at 24% 66.3%, rgba(6,3,3,.62) 0%, rgba(6,3,3,.34) 55%, rgba(6,3,3,0) 100%),
+      radial-gradient(75% 22% at 28% 100%, rgba(6,3,3,.82) 0%, rgba(6,3,3,.5) 55%, rgba(6,3,3,0) 100%)}
+
+  /* ===== 左下：06 CONTACT（電影海報式 billing block） ===== */
+  .contact{left:7cqw;bottom:6.2cqw;width:70cqw}
+  /* 標題列比照 Mission Data：左標籤、中細線、右邊放單位名稱 */
+  .contact .chead{display:flex;align-items:center;gap:1.6cqw}
+  .contact .chead i{flex:1;height:1px;background:var(--hair)}
+  .contact .chead b{font-weight:500;font-size:1.3cqw;letter-spacing:.2em;margin-right:-.2em;color:var(--gray)}
+  /* 四欄通訊名冊：每欄左側一條細線，頂端一小段橘紅（像名牌的夾扣） */
+  .crew{margin-top:1.8cqw;display:grid;grid-template-columns:repeat(4,1fr)}
+  .crew > div{position:relative;padding-left:1.5cqw;white-space:nowrap}
+  .crew > div::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(var(--rust) 0 1.9cqw,var(--hair) 1.9cqw)}
+  .crew .nm{display:flex;align-items:baseline;gap:.9cqw;line-height:1}
+  .crew small{font-weight:500;font-size:1.12cqw;letter-spacing:.2em;color:var(--gray-2)}
+  .crew b{font-weight:500;font-size:1.92cqw;letter-spacing:.12em;color:color-mix(in srgb,var(--ivory) 80%,#060304)}
+  .crew .tel{margin-top:1.1cqw;font-family:var(--sans);font-weight:500;font-size:1.55cqw;letter-spacing:.05em;line-height:1;color:color-mix(in srgb,var(--ivory) 75%,#060304)}
+  .crew .mail{margin-top:.8cqw;font-family:var(--mono);font-weight:400;font-size:1.1cqw;letter-spacing:0;line-height:1;color:var(--gray)}
+  /* 頁尾：系學會辦公室電話與營隊信箱，格式同名冊（小標＋數值），兩欄對齊名冊第 1、3 欄 */
+  .office{margin-top:2.1cqw;padding-top:1.7cqw;border-top:1px solid var(--hair);display:grid;grid-template-columns:1fr 1fr;white-space:nowrap}
+  .office p{display:flex;align-items:baseline;gap:.9cqw}
+  .office small{font-weight:500;font-size:1.12cqw;letter-spacing:.2em;color:var(--gray-2)}
+  .office .num{font-family:var(--sans);font-weight:500;font-size:1.5cqw;letter-spacing:.05em;color:color-mix(in srgb,var(--ivory) 70%,#060304)}
+  .office .num small{font-size:.8em;letter-spacing:.04em;color:var(--gray-2);margin-left:.3em}
+  .office .num.mail{font-family:var(--mono);font-weight:400;font-size:1.42cqw;letter-spacing:0}
+
+  /* ===== 世界觀細節：ARES-1（地圖式標註） ===== */
+  .ares{left:71.5cqw;top:91cqw;width:22cqw;height:13cqw}
+  .ares svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .ares p{position:absolute;left:8.5cqw;top:1.6cqw;font-family:var(--mono);text-transform:uppercase;line-height:1.35;white-space:nowrap}
+  .ares b{display:block;font-weight:400;font-size:1.05cqw;letter-spacing:.26em;color:var(--gray)}
+  .ares span{display:block;font-size:.85cqw;letter-spacing:.22em;color:var(--rust);opacity:.8}
+</style>
+</head>
+<body>
+<main class="poster">
+  <img class="bg" src="https://raw.githubusercontent.com/ntutee/ares-poster/main/素材/底圖-AI放大4x.png" alt="">
+  <div class="shade"></div>
+
+  <!-- 角落 -->
+  <p class="corner-tl">國立臺北科技大學 電機工程系</p>
+  <p class="corner-tr mono">Mars<br>25.0°N / 226.1°E</p>
+
+  <!-- 主標 -->
+  <section class="hero">
+    <h1><span>絕地</span><span>救援</span></h1>
+    <p class="zh">赤境計畫</p>
+    <p class="en">PROJECT ARES</p>
+    <div class="camp">
+      <p class="camp-en">2027 NTUT EE CAMP</p>
+      <p class="camp-zh">第十一屆北科電機冬令營</p>
+    </div>
+  </section>
+
+  <!-- Mission Data -->
+  <section class="data">
+    <div class="head mono">Mission Data<i></i><b>赤境救援先鋒隊 招募中</b></div>
+
+    <div class="launch">
+      <div>
+        <span class="label"><em>01</em>Launch Window<span>營期</span></span>
+        <p class="date">01.25<i>—</i>01.29</p>
+        <p class="note"><span class="y">2027</span>MON – FRI　五天四夜</p>
+      </div>
+      <div class="apply">
+        <span>掃描報名</span>
+        <div class="qr">
+          <!-- 報名 QR：https://ntut-ee-redirect.pages.dev/（圓點模組＋圓角定位框，error H，向量 SVG 自帶 4 格 quiet zone；方格版備用：素材/報名QR-方格.svg） -->
+          <img src="https://raw.githubusercontent.com/ntutee/ares-poster/main/素材/報名QR-圓點.svg" alt="報名 QR Code：ntut-ee-redirect.pages.dev">
+        </div>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div>
+        <span class="label"><em>02</em>Base<span>地點</span></span>
+        <p class="v">國立臺北科技大學</p>
+      </div>
+      <div>
+        <span class="label"><em>03</em>Crew<span>對象</span></span>
+        <p class="v">全國高中職學生<small>限額 100 名</small></p>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div>
+        <span class="label"><em>04</em>Enlist<span>報名</span></span>
+        <p class="v num">11.01 – 11.21</p>
+        <p class="roster">
+          <svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5.4" fill="none" stroke="#d0603f" stroke-opacity=".75" stroke-width=".8" vector-effect="non-scaling-stroke"/><circle cx="6" cy="6" r="1.9" fill="#d0603f"/></svg>
+          <b>11.25</b>公布正備取名單
+        </p>
+      </div>
+      <div>
+        <span class="label"><em>05</em>Fee<span>報名費</span></span>
+        <div class="tiers">
+          <div class="tier">
+            <p class="v num"><small class="cur">NT$</small>8,500<small class="per">/人</small></p>
+            <p class="who"><span class="dots"><i></i></span>個人報名</p>
+          </div>
+          <div class="tier squad">
+            <p class="v num"><small class="cur">NT$</small>8,300<small class="per">/人</small></p>
+            <p class="who"><span class="dots"><i></i><i></i><i></i></span>三人團報</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 左下：活動聯絡 -->
+  <section class="contact">
+    <div class="chead"><span class="label"><em>06</em>Contact<span>活動聯絡</span></span><i></i><b>國立臺北科技大學電機工程系學會</b></div>
+    <div class="crew">
+      <div><p class="nm"><small>總召</small><b>何康豪</b></p><p class="tel">0928-599-291</p><p class="mail">t114310334@ntut.org.tw</p></div>
+      <div><p class="nm"><small>副召</small><b>楊超翔</b></p><p class="tel">0968-663-122</p><p class="mail">t114310228@ntut.org.tw</p></div>
+      <div><p class="nm"><small>副召</small><b>陳宇倫</b></p><p class="tel">0910-337-696</p><p class="mail">3064080@gmail.com</p></div>
+      <div><p class="nm"><small>秘書</small><b>許宥翔</b></p><p class="tel">0981-438-118</p><p class="mail">t114310329@ntut.org.tw</p></div>
+    </div>
+    <div class="office">
+      <p><small>系學會</small><span class="num">02-2771-2171<small>#2131</small></span></p>
+      <p><small>營隊信箱</small><span class="num mail">ntuteecamp11@gmail.com</span></p>
+    </div>
+  </section>
+
+  <!-- 世界觀細節：基地標註（錨點對準天線頂端 x72 y103.5；14 版把文字拉高到 y93–96，與報名費那列錯開） -->
+  <div class="ares">
+    <svg viewBox="0 0 220 130" aria-hidden="true">
+      <circle cx="5" cy="125" r="5" fill="none" stroke="#d0603f" stroke-opacity=".7" stroke-width=".6" vector-effect="non-scaling-stroke"/>
+      <circle cx="5" cy="125" r="1.4" fill="#d0603f"/>
+      <polyline points="8.5,121.5 75,50 215,50" fill="none" stroke="#ebe3d6" stroke-opacity=".28" stroke-width=".6" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <p><b>ARES-1</b><span>Communication lost</span></p>
+  </div>
+</main>
+</body>
+</html>
